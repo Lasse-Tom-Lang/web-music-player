@@ -65,6 +65,7 @@ main>div>div>div {
   white-space: nowrap;
   overflow: scroll;
   margin-top: 4%;
+  color: white;
 }
 
 #controlls {
