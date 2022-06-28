@@ -1,18 +1,42 @@
 audio = document.getElementById("audio");
-progress = document.querySelector("#progress div");
-title = document.getElementById("title");
 
-musicClips = ["testMusic.mp3"]
+progress = document.getElementById("progress");
+progress.addEventListener("click", (e) => {
+  audio.currentTime = (e.pageX - progress.getBoundingClientRect().x) * (audio.duration / progress.clientWidth);
+});
+progressBar = document.querySelector("#progress div");
+
+musicClips = ["testMusic.mp3", "Test", "Hallo"]
 
 currentClip = 0
 
-btnPlaypause_img = document.querySelector("#btn-playpause img");
-
 isPlaying = false;
+
+function setClip() {
+  audio.src = "music/" + musicClips[currentClip];
+  title.innerHTML = musicClips[currentClip];
+}
+
+document.getElementById("btn-backward").addEventListener("click", () => {
+  currentClip = ((currentClip - 1) <0)?(musicClips.length - 1):currentClip -= 1;
+  setClip();
+  isPlaying?audio.play():audio.pause();
+});
+document.getElementById("btn-forward").addEventListener("click", () => {
+  currentClip = ((currentClip + 1) == musicClips.length)?0:currentClip += 1;
+  setClip();
+  isPlaying?audio.play():audio.pause();
+});
+
+document.getElementById("btn-forward");
+
+title = document.getElementById("title");
+
+btnPlaypause_img = document.querySelector("#btn-playpause img");
 
 audio.addEventListener("timeupdate", (e) => {
   currentPercent =  e.srcElement.currentTime / e.srcElement.duration * 100;
-  progress.style.transform = "translateX(" + (currentPercent - 100) + "%)";
+  progressBar.style.transform = "translateX(" + (currentPercent - 100) + "%)";
 });
 
 document.getElementById("btn-playpause").addEventListener("click", () => {
@@ -27,10 +51,5 @@ document.getElementById("btn-playpause").addEventListener("click", () => {
       break;
   }
 });
-
-function setClip() {
-  audio.src = "music/" + musicClips[currentClip];
-  title.innerHTML = musicClips[currentClip];
-}
 
 setClip()
