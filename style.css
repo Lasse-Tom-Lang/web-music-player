@@ -35,6 +35,28 @@ main>div:first-of-type {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+#track-list a {
+  width: 90%;
+  background-color: rgba(246, 246, 246, 0.4);
+  font-size: 120%;
+  color: white;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#track-list a:first-of-type {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+#track-list a:last-of-type {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 main>div>div {

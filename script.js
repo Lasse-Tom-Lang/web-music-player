@@ -1,4 +1,5 @@
 audio = document.getElementById("audio");
+cover = document.getElementById("cover");
 
 progress = document.getElementById("progress");
 progress.addEventListener("click", (e) => {
@@ -6,15 +7,31 @@ progress.addEventListener("click", (e) => {
 });
 progressBar = document.querySelector("#progress div");
 
-musicClips = ["testMusic.mp3", "Test", "Hallo"]
+trackList = document.getElementById("track-list");
 
-currentClip = 0
+musicClips = [{name: "test Audio", audio: "testMusic.mp3", cover: "testCover.png"}, {name: "Song 2", audio: "song2.mp3", cover: "cover2.png"}, {name: "Song 3", audio: "song3.mp3", cover: "cover3.png"}];
+
+currentClip = 0;
 
 isPlaying = false;
 
 function setClip() {
-  audio.src = "music/" + musicClips[currentClip];
-  title.innerHTML = musicClips[currentClip];
+  audio.src = "music/" + musicClips[currentClip].audio;
+  cover.src = "music/" + musicClips[currentClip].cover;
+  title.innerHTML = musicClips[currentClip].name;
+}
+
+function loadSong(song) {
+  currentClip = song;
+  setClip();
+}
+
+function setTrackList() {
+  a = 0;
+  musicClips.forEach(element => {
+    trackList.innerHTML += "<a onclick=loadSong(" + a + ")>" + element.name + "</a>";
+    a++;
+  });
 }
 
 document.getElementById("btn-backward").addEventListener("click", () => {
@@ -52,4 +69,5 @@ document.getElementById("btn-playpause").addEventListener("click", () => {
   }
 });
 
-setClip()
+setClip();
+setTrackList();
