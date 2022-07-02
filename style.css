@@ -90,11 +90,35 @@ main>div>div>div {
   color: white;
 }
 
-#controlls {
+.controlls {
   margin-top: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#btn-playbackSpeed {
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  color: white;
+  font-size: 130%;
+  margin-right: 20%;
+  cursor: pointer;
+  padding: 5px 0 5px 0;
+}
+
+#btn-autoplay {
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  color: white;
+  margin-right: 20%;
+  cursor: pointer;
+}
+
+#btn-autoplay img {
+  width: 80%;
+  aspect-ratio: 1;
+  object-fit: contain;
 }
 
 #progress {
