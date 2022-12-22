@@ -39,7 +39,7 @@ function loadSong(song:number) {
 function setTrackList() {
   let a = 0;
   musicClips.forEach(element => {
-    trackList.innerHTML += "<a onclick=loadSong(" + a + ")>" + element.name + "</a>";
+    trackList.innerHTML += `<a onclick=loadSong(${a})>${element.name}</a>`;
     a++;
   });
 }
@@ -84,7 +84,7 @@ btnForward.addEventListener("click", () => {
 
 audio.addEventListener("timeupdate", () => {
   let currentPercent = audio.currentTime / audio.duration * 100;
-  progressBar.style.transform = "translateX(" + (currentPercent - 100) + "%)";
+  progressBar.style.transform = `translateX(${currentPercent - 100}%)`;
   if (audio.currentTime == audio.duration && autoplay) {
     currentClip = ((currentClip + 1) == musicClips.length) ? 0 : currentClip += 1;
     setClip();

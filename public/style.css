@@ -16,13 +16,14 @@ body {
 main {
   width: min(calc(100% - 20px), 700px);
   height: min(calc(100% - 20px), 700px);
-  background-color: rgba(238, 238, 238, 0.5);
+  background-color: rgba(238, 238, 238, 0.3);
   display: flex;
   align-items: center;
   justify-content: baseline;
   flex-direction: column;
-  border-radius: 25px;
-  box-shadow: 2px 2px 6px rgb(40, 40, 40);
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px rgba(67, 67, 67, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   overflow-y: scroll;
 }
 
@@ -73,7 +74,7 @@ main>div>div>div {
 #cover {
   width: 40%;
   aspect-ratio: 1;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
   object-fit: cover;
   background-color: white;
@@ -97,13 +98,15 @@ main>div>div>div {
   justify-content: center;
 }
 
+.controlls:last-of-type {
+  justify-content: space-around;
+}
+
 #btn-playbackSpeed {
   background: rgba(0, 0, 0, 0);
   border: 0;
   color: white;
   font-size: 130%;
-  margin-right: 45%;
-  margin-left: 20%;
   cursor: pointer;
   padding: 5px 0 5px 0;
 }
@@ -112,7 +115,6 @@ main>div>div>div {
   background: rgba(0, 0, 0, 0);
   border: 0;
   color: white;
-  margin-right: 20%;
   cursor: pointer;
 }
 
@@ -147,6 +149,8 @@ main>div>div>div {
   border-radius: 50%;
   margin-inline: 10px;
   cursor: pointer;
+  display: grid;
+  place-items: center;
 }
 
 .btn-controlls:hover {
