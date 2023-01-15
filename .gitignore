@@ -1,5 +1,4 @@
-testMusic.mp3
-testCover.png
+music/*
 .DS_Store
 index.js
 script.js

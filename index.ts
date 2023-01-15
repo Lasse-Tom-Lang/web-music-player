@@ -7,6 +7,7 @@ app.listen(80, () => {
 })
 
 app.use('/icons', express.static('./public/icons'))
+app.use('/music', express.static('./music'))
 
 app.get('/', (req, res) => {
   res.write(fs.readFileSync("./public/index.html"));
