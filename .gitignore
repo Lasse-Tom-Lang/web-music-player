@@ -1,5 +1,4 @@
-music/*
 .DS_Store
-index.js
-script.js
+*.js
 node_modules
+demo.jpeg

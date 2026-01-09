@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #ff4e50, #f9d423);
+}
+
+.glassEffect {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.displayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 160px);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.displayGrid>* {
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 1rem;
+  transition: all .2s ease-in-out;
+}
+
+.displayGrid>*:hover {
+  transform: scale(1.1);
+}
+
+#musicControllBarSmall {
+  position: fixed;
+  bottom: .5rem;
+  left: .5rem;
+  width: calc(100% - 1rem);
+  height: 60px;
+  border-radius: 1rem;
+}
