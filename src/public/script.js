@@ -2,6 +2,10 @@ const playButton = document.getElementById("playButton");
 const playBar = document.getElementById("playBar");
 const playBarFill = document.getElementById("playBarFill");
 const mainAudioSource = document.getElementById("mainAudioSource");
+const currentTrackTitle = document.getElementById("currentTrackTitle");
+const currentAlbumTitle = document.getElementById("currentAlbumTitle");
+const currentAlbumCover = document.getElementById("currentAlbumCover");
+const setPlaybackSpeed = document.getElementById("setPlaybackSpeed");
 
 let audioIsPlaying = true
 
@@ -26,6 +30,21 @@ function audioPlaying() {
   if (mainAudioSource.currentTime >= mainAudioSource.duration) {
     toggleAudio();
   }
+}
+
+function setCurrentAudioTrack(trackTitle, albumTitle, albumCoverImage, audioFile) {
+  currentTrackTitle.innerText = trackTitle;
+  currentAlbumTitle.innerText = albumTitle;
+  currentAlbumCover.src = albumCoverImage;
+  mainAudioSource.src = audioFile; 
+}
+
+function togglePlaybackSpeed() {
+  mainAudioSource.playbackRate += 0.5;
+  if (mainAudioSource.playbackRate > 2) {
+    mainAudioSource.playbackRate = 0.5
+  }
+  setPlaybackSpeed.innerText = mainAudioSource.playbackRate + "x";
 }
 
 playBar.addEventListener("mousedown", (event) => {

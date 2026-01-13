@@ -74,7 +74,7 @@ body {
   height: 100%;
 }
 
-#albumCover {
+#currentAlbumCover {
   border-radius: .5rem;
   aspect-ratio: 1;
   object-fit: cover;
@@ -92,4 +92,18 @@ body {
 #musicControllBarSongInfo p {
   margin-top: .25rem;
   color: #eeeeee60;
+}
+
+#musicControllBarRight {
+  display: flex;
+  height: calc(100% - 1rem - 4px);
+  gap: .5rem;
+  position: absolute;
+  right: .5rem;
+}
+
+#setPlaybackSpeed {
+  aspect-ratio: 1;
+  height: 100%;
+  font-size: 25px;
 }

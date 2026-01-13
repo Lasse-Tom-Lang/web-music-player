@@ -31,15 +31,18 @@
         </div>
       </div>
       <div id="musicControllBarSongInfo">
-        <img src="demo.jpeg" alt="Cover" id="albumCover">
+        <img src="demo.jpeg" alt="Cover" id="currentAlbumCover">
         <div>
-          <h2>Song Title</h2>
-          <p>Album Title</p>
+          <h2 id="currentTrackTitle">Song Title</h2>
+          <p id="currentAlbumTitle">Album Title</p>
         </div>
       </div>
       <img src="icons/rewind_backwards.svg" alt="Backwards" class="canBeClicked smallHover glassEffect">
       <img src="icons/play.svg" alt="Pause" id="playButton" class="canBeClicked smallHover glassEffect">
       <img src="icons/rewind_forward.svg" alt="Forward" class="canBeClicked smallHover glassEffect">
+      <div id="musicControllBarRight">
+        <button id="setPlaybackSpeed" class="canBeClicked smallHover glassEffect" onclick="togglePlaybackSpeed()">1x</button>
+      </div>
     </div>
     <audio src="demo.mp3" id="mainAudioSource"></audio>
   </body>
