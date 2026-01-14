@@ -107,3 +107,21 @@ body {
   height: 100%;
   font-size: 25px;
 }
+
+#artistView {
+  padding: 2rem;
+}
+
+#artistTopInfo {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#artistTopInfo img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 1rem;
+  width: 300px;
+}
