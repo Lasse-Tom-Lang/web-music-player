@@ -125,3 +125,9 @@ body {
   border-radius: 1rem;
   width: 300px;
 }
+
+#currentPlayTime {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
