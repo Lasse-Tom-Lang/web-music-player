@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "## Setup",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/Lasse-Tom-Lang/web-music-player#readme",
   "dependencies": {
+    "better-sqlite3": "^12.6.2",
     "express": "^4.18.2"
   },
   "devDependencies": {
