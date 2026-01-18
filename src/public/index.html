@@ -8,17 +8,15 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- <div class="displayGrid">
-      <img src="demo.jpeg" alt="" class="canBeClicked smallHover">
-    </div> -->
-    <div id="artistView">
+    <div class="displayGrid" id="allArtistsGrid">
+    </div>
+    <div id="artistView" style="display: none;">
       <div id="artistTopInfo">
-        <img src="demo.jpeg" alt="Artist">
-        <h1>Artist name</h1>
+        <img src="" alt="Artist" id="artistViewArtistCover">
+        <h1 id="artistViewArtistName">Artist name</h1>
       </div>
       <h2>Albums</h2>
-      <div class="displayGrid">
-        <img src="demo.jpeg" alt="" class="canBeClicked smallHover">
+      <div class="displayGrid" id="artistViewAlbumList">
       </div>
     </div>
     <div id="musicControllBarSmall" class="glassEffect">
@@ -26,10 +24,10 @@
         <div id="playBarFill"></div>
       </div>
       <div id="musicControllBarSongInfo">
-        <img src="demo.jpeg" alt="Cover" id="currentAlbumCover">
+        <img src="" alt="Cover" id="currentAlbumCover">
         <div>
-          <h2 id="currentTrackTitle">Song Title</h2>
-          <p id="currentAlbumTitle">Album Title</p>
+          <h2 id="currentTrackTitle">Not playing</h2>
+          <p id="currentAlbumTitle">Not playing</p>
         </div>
       </div>
       <p id="currentPlayTime">0:00 <br> 0:00 </p>
@@ -40,6 +38,6 @@
         <button id="setPlaybackSpeed" class="canBeClicked smallHover glassEffect" onclick="togglePlaybackSpeed()">1x</button>
       </div>
     </div>
-    <audio src="demo.mp3" id="mainAudioSource"></audio>
+    <audio src="" id="mainAudioSource"></audio>
   </body>
 </html>

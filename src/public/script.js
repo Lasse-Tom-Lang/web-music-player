@@ -7,8 +7,66 @@ const currentAlbumTitle = document.getElementById("currentAlbumTitle");
 const currentAlbumCover = document.getElementById("currentAlbumCover");
 const setPlaybackSpeed = document.getElementById("setPlaybackSpeed");
 const currentPlayTime = document.getElementById("currentPlayTime");
+const allArtistsGrid = document.getElementById("allArtistsGrid");
+const artistView = document.getElementById("artistView");
+const artistViewArtistCover = document.getElementById("artistViewArtistCover");
+const artistViewArtistName = document.getElementById("artistViewArtistName");
+const artistViewAlbumList = document.getElementById("artistViewAlbumList");
 
-let audioIsPlaying = true
+let audioIsPlaying = true;
+let artistsInfoList = {};
+
+function getAllArtists() {
+  fetch("/api/getAllArtists").then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    for (let i = 0; i<data.length; i++) {
+      addArtistToGrid(data[i]);
+      artistsInfoList[data[i].artist_id] = {"artistName": data[i].artist_name, "artistCoverImage": data[i].artist_cover_image};
+    }
+  }).catch(function(err) {
+    console.warn('Fetch Error :-S', err);
+  });
+}
+
+function addArtistToGrid(artist) {
+  let newArtistForGrid = document.createElement("img");
+  newArtistForGrid.classList.add("canBeClicked", "smallHover");
+  newArtistForGrid.src = artist.artist_cover_image;
+  newArtistForGrid.setAttribute("artistID", artist.artist_id);
+  newArtistForGrid.onclick = loadArtistPage;
+  allArtistsGrid.appendChild(newArtistForGrid);
+}
+
+function loadArtistPage(event) {
+  let selectedArtistID = event.target.getAttribute("artistID");
+  allArtistsGrid.style.display = "none";
+  artistView.style.display = "block";
+  artistViewArtistCover.src = artistsInfoList[selectedArtistID].artistCoverImage;
+  artistViewArtistName.innerText = artistsInfoList[selectedArtistID].artistName;
+  getAlbumsFromArtist(selectedArtistID);
+}
+
+function getAlbumsFromArtist(artistID) {
+  fetch("/api/getAlbumsFromArtist?artistID=" + artistID).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    for (let i = 0; i<data.length; i++) {
+      addAlbumToArtistGrid(data[i])
+    }
+  }).catch(function(err) {
+    console.warn('Fetch Error :-S', err);
+  });
+}
+
+function addAlbumToArtistGrid(album) {
+  let newAlbumForGrid = document.createElement("img");
+  newAlbumForGrid.classList.add("canBeClicked", "smallHover");
+  newAlbumForGrid.src = album.album_cover_image;
+  newAlbumForGrid.setAttribute("albumID", album.album_id);
+  // newAlbumForGrid.onclick = none;
+  artistViewAlbumList.appendChild(newAlbumForGrid);
+}
 
 function toggleAudio() {
   if (audioIsPlaying) {
@@ -62,4 +120,4 @@ playButton.onclick = toggleAudio;
 
 mainAudioSource.ontimeupdate = audioPlaying;
 
-setCurrentAudioTrack("Faded restrung", "Faded", "demo.jpeg", "demo.mp3");
+getAllArtists();
