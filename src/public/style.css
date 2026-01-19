@@ -109,18 +109,18 @@ body {
   font-size: 25px;
 }
 
-#artistView {
+.singleInfoView {
   padding: 2rem;
 }
 
-#artistTopInfo {
+.singleInfoViewTop {
   display: flex;
   gap: 2rem;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-#artistTopInfo img {
+.singleInfoViewTop img {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 1rem;

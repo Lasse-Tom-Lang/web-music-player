@@ -12,9 +12,15 @@ const artistView = document.getElementById("artistView");
 const artistViewArtistCover = document.getElementById("artistViewArtistCover");
 const artistViewArtistName = document.getElementById("artistViewArtistName");
 const artistViewAlbumList = document.getElementById("artistViewAlbumList");
+const albumView = document.getElementById("albumView");
+const albumViewAlbumCover = document.getElementById("albumViewAlbumCover");
+const albumViewAlbumName = document.getElementById("albumViewAlbumName");
+const albumViewTrackList = document.getElementById("albumViewTrackList");
 
 let audioIsPlaying = true;
 let artistsInfoList = {};
+let albumInfoList = {};
+let trackList = {};
 
 function getAllArtists() {
   fetch("/api/getAllArtists").then(function(response) {
@@ -53,6 +59,7 @@ function getAlbumsFromArtist(artistID) {
   }).then(function(data) {
     for (let i = 0; i<data.length; i++) {
       addAlbumToArtistGrid(data[i])
+      albumInfoList[data[i].album_id] = {"albumName": data[i].album_name, "albumCoverImage": data[i].album_cover_image, "artistID": data[i].artist_id};
     }
   }).catch(function(err) {
     console.warn('Fetch Error :-S', err);
@@ -64,8 +71,45 @@ function addAlbumToArtistGrid(album) {
   newAlbumForGrid.classList.add("canBeClicked", "smallHover");
   newAlbumForGrid.src = album.album_cover_image;
   newAlbumForGrid.setAttribute("albumID", album.album_id);
-  // newAlbumForGrid.onclick = none;
+  newAlbumForGrid.onclick = loadAlbumPage;
   artistViewAlbumList.appendChild(newAlbumForGrid);
+}
+
+function loadAlbumPage(event) {
+  let selectedAlbumID = event.target.getAttribute("albumID");
+  allArtistsGrid.style.display = "none";
+  artistView.style.display = "none";
+  albumView.style.display = "block";
+  albumViewAlbumCover.src = albumInfoList[selectedAlbumID].albumCoverImage;
+  albumViewAlbumName.innerText = albumInfoList[selectedAlbumID].albumName;
+  getAlbum(selectedAlbumID);
+}
+
+function getAlbum(albumID) {
+  fetch("/api/getAudioTrackFromAlbum?albumID=" + albumID).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    trackList = {};
+    for (let i = 0; i<data.length; i++) {
+      addTrackToAlbumTrackList(data[i]);
+      trackList[data[i].audioTrack_id] = {"audioTrackName": data[i].audioTrack_name, "audioTrackLocation": data[i].audioTrack_location, "albumID": data[i].album_id};
+    }
+  }).catch(function(err) {
+    console.warn('Fetch Error :-S', err);
+  });
+}
+
+function addTrackToAlbumTrackList(audioTrack) {
+  let newTrackForList = document.createElement("li");
+  newTrackForList.setAttribute("audioTrackID", audioTrack.audioTrack_id);
+  newTrackForList.onclick = setSelectedAudioTrack;
+  newTrackForList.innerText = audioTrack.audioTrack_name;
+  albumViewTrackList.appendChild(newTrackForList);
+}
+
+function setSelectedAudioTrack(event) {
+  let selectedAudioTrackID = event.target.getAttribute("audioTrackID");
+  setCurrentAudioTrack(trackList[selectedAudioTrackID].audioTrackName, albumInfoList[trackList[selectedAudioTrackID].albumID].albumName, albumInfoList[trackList[selectedAudioTrackID].albumID].albumCoverImage, trackList[selectedAudioTrackID].audioTrackLocation);
 }
 
 function toggleAudio() {

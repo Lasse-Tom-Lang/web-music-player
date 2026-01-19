@@ -10,14 +10,23 @@
   <body>
     <div class="displayGrid" id="allArtistsGrid">
     </div>
-    <div id="artistView" style="display: none;">
-      <div id="artistTopInfo">
+    <div id="artistView" class="singleInfoView" style="display: none;">
+      <div id="artistTopInfo" class="singleInfoViewTop">
         <img src="" alt="Artist" id="artistViewArtistCover">
         <h1 id="artistViewArtistName">Artist name</h1>
       </div>
       <h2>Albums</h2>
       <div class="displayGrid" id="artistViewAlbumList">
       </div>
+    </div>
+    <div id="albumView" class="singleInfoView" style="display: none;">
+      <div id="albumTopInfo" class="singleInfoViewTop">
+        <img src="" alt="Album" id="albumViewAlbumCover">
+        <h1 id="albumViewAlbumName">Album name</h1>
+      </div>
+      <h2>Tracks</h2>
+      <ol id="albumViewTrackList">
+      </ol>
     </div>
     <div id="musicControllBarSmall" class="glassEffect">
       <div id="playBar" class="canBeClicked">
