@@ -17,7 +17,6 @@ const albumViewAlbumCover = document.getElementById("albumViewAlbumCover");
 const albumViewAlbumName = document.getElementById("albumViewAlbumName");
 const albumViewTrackList = document.getElementById("albumViewTrackList");
 
-let audioIsPlaying = true;
 let artistsInfoList = {};
 let albumInfoList = {};
 let trackList = {};
@@ -113,15 +112,21 @@ function setSelectedAudioTrack(event) {
 }
 
 function toggleAudio() {
-  if (audioIsPlaying) {
-    playButton.src = "icons/pause.svg";
-    audioIsPlaying = false;
-    mainAudioSource.play()
+  if (mainAudioSource.paused) {
+    playAudio();
     return;
   }
+  pauseAudio();
+}
+
+function pauseAudio() {
   playButton.src = "icons/play.svg";
-  audioIsPlaying = true;
-    mainAudioSource.pause()
+  mainAudioSource.pause()
+}
+
+function playAudio() {
+  playButton.src = "icons/pause.svg";
+  mainAudioSource.play()
 }
 
 function setPlayBarFill(scaleFactor) {
@@ -144,6 +149,8 @@ function setCurrentAudioTrack(trackTitle, albumTitle, albumCoverImage, audioFile
   setTimeout(() => {
     currentPlayTime.innerHTML = "0:00 <br> " + Math.floor(mainAudioSource.duration / 60) + ":" + Math.floor(mainAudioSource.duration % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
   }, 300); // TODO: Find solution
+  setPlayBarFill(0);
+  playAudio();
 }
 
 function togglePlaybackSpeed() {
@@ -163,5 +170,9 @@ playBar.addEventListener("mousedown", (event) => {
 playButton.onclick = toggleAudio;
 
 mainAudioSource.ontimeupdate = audioPlaying;
+
+mainAudioSource.onpause = pauseAudio;
+
+mainAudioSource.onplay = playAudio;
 
 getAllArtists();
