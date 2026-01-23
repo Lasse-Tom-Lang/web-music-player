@@ -15,29 +15,59 @@ cursor.execute("CREATE TABLE IF NOT EXISTS audioTracks (audioTrack_id TEXT PRIMA
 
 basedir = ""
 
-artists = os.listdir(basedir)[0:7]
-artists.sort()
+
+def getArtists():
+  artists = os.listdir(basedir)[0:7]
+  artists.sort()
+  return artists
+
+
+def getAlbumsByArtist(artist):
+  albums = os.listdir(basedir + artist)
+  albums.sort()
+  return albums
+
+
+def getTracksByAlbum(artist, album):
+  tracks = os.listdir(basedir + artist + "/" + album)
+  tracks.sort()
+  return tracks
+
+
+def saveArtistToDatabase(artist):
+  command = f"INSERT INTO artists (artist_id, artist_name, artist_cover_image) VALUES ('{re.sub('\\W+','', artist.lower())}', '{artist}', NULL)"
+  cursor.execute(command)
+  connection.commit()
+
+
+def saveAlbumToDatabase(artist, album):
+  command = f"INSERT INTO albums (album_id, album_name, album_cover_image, artist_id) VALUES ('{re.sub('\\W+','', artist.lower()) + re.sub('\\W+','', album.lower())}', '{album}', NULL, '{re.sub('\\W+','', artist.lower())}')"
+  cursor.execute(command)
+  connection.commit()
+
+
+artists = getArtists()
 
 for artist in artists:
   if artist == ".DS_Store":
     continue
   print(Fore.GREEN + artist + Style.RESET_ALL)
-  command = f"INSERT INTO artists (artist_id, artist_name, artist_cover_image) VALUES ('{re.sub('\\W+','', artist.lower())}', '{artist}', NULL)"
-  cursor.execute(command)
+  saveArtistToDatabase(artist)
+
   if not os.path.isdir(basedir + artist):
     continue
-  albums = os.listdir(basedir + artist)
-  albums.sort()
+
+  albums = getAlbumsByArtist(artist)
   for album in albums:
     if album == ".DS_Store":
       continue
     print(Fore.BLUE + album + Style.RESET_ALL)
-    command = f"INSERT INTO albums (album_id, album_name, album_cover_image, artist_id) VALUES ('{re.sub('\\W+','', artist.lower()) + re.sub('\\W+','', album.lower())}', '{album}', NULL, '{re.sub('\\W+','', artist.lower())}')"
-    cursor.execute(command)
+    saveAlbumToDatabase(artist, album)
+
     if not os.path.isdir(basedir + artist + "/" + album):
       continue
-    tracks = os.listdir(basedir + artist + "/" + album)
-    tracks.sort()
+
+    tracks = getTracksByAlbum(artist, album)
     for track in tracks:
       if track == ".DS_Store":
         continue
