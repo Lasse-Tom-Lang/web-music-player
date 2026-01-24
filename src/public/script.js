@@ -91,7 +91,7 @@ function getAlbum(albumID) {
     trackList = {};
     for (let i = 0; i<data.length; i++) {
       addTrackToAlbumTrackList(data[i]);
-      trackList[data[i].audioTrack_id] = {"audioTrackName": data[i].audioTrack_name, "audioTrackLocation": data[i].audioTrack_location, "albumID": data[i].album_id};
+      trackList[data[i].audioTrack_id] = {"audioTrackName": data[i].audioTrack_name, "audioTrackLocation": data[i].audioTrack_location, "audioTrackNumber": data[i].audioTrack_number, "albumID": data[i].album_id};
     }
   }).catch(function(err) {
     console.warn('Fetch Error :-S', err);
@@ -99,10 +99,18 @@ function getAlbum(albumID) {
 }
 
 function addTrackToAlbumTrackList(audioTrack) {
-  let newTrackForList = document.createElement("li");
+  let newTrackForList = document.createElement("div");
+  newTrackForList.classList.add("trackListItem")
   newTrackForList.setAttribute("audioTrackID", audioTrack.audioTrack_id);
   newTrackForList.onclick = setSelectedAudioTrack;
-  newTrackForList.innerText = audioTrack.audioTrack_name;
+  let newTrackForListSpan = document.createElement("span");
+  newTrackForListSpan.innerText = audioTrack.audioTrack_number;
+  newTrackForListSpan.setAttribute("audioTrackID", audioTrack.audioTrack_id);
+  let newTrackForListP = document.createElement("p");
+  newTrackForListP.innerText = audioTrack.audioTrack_name;
+  newTrackForListP.setAttribute("audioTrackID", audioTrack.audioTrack_id);
+  newTrackForList.appendChild(newTrackForListSpan);
+  newTrackForList.appendChild(newTrackForListP);
   albumViewTrackList.appendChild(newTrackForList);
 }
 

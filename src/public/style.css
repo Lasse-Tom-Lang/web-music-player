@@ -132,3 +132,32 @@ body {
   display: flex;
   align-items: center;
 }
+
+#albumViewTrackList {
+  margin-top: 1rem;
+}
+
+.trackListItem {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.trackListItem:last-of-type {
+  border-bottom: none;
+}
+
+.trackListItem p {
+  transition: all .15s ease-in-out;
+}
+
+.trackListItem:hover p {
+  scale: 1.2;
+  translate: 10px 0;
+}
+
+.trackListItem span {
+  color: #eeeeee60;
+}
