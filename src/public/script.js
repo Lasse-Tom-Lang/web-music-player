@@ -16,10 +16,15 @@ const albumView = document.getElementById("albumView");
 const albumViewAlbumCover = document.getElementById("albumViewAlbumCover");
 const albumViewAlbumName = document.getElementById("albumViewAlbumName");
 const albumViewTrackList = document.getElementById("albumViewTrackList");
+const backwardsButton = document.getElementById("backwardsButton");
+const forwardsButton = document.getElementById("forwardsButton");
 
 let artistsInfoList = {};
 let albumInfoList = {};
 let trackList = {};
+let nextSongsToPlay = [];
+let lastSongsPlayed = [];
+let currentlyPlayedSong = "";
 
 function getAllArtists() {
   fetch("/api/getAllArtists").then(function(response) {
@@ -116,6 +121,7 @@ function addTrackToAlbumTrackList(audioTrack) {
 
 function setSelectedAudioTrack(event) {
   let selectedAudioTrackID = event.target.getAttribute("audioTrackID");
+  currentlyPlayedSong = selectedAudioTrackID;
   setCurrentAudioTrack(trackList[selectedAudioTrackID].audioTrackName, albumInfoList[trackList[selectedAudioTrackID].albumID].albumName, albumInfoList[trackList[selectedAudioTrackID].albumID].albumCoverImage, trackList[selectedAudioTrackID].audioTrackLocation);
 }
 
@@ -146,6 +152,7 @@ function audioPlaying() {
   currentPlayTime.innerHTML = Math.floor(mainAudioSource.currentTime / 60) + ":" + Math.floor(mainAudioSource.currentTime % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false}) + " <br> " + Math.floor(mainAudioSource.duration / 60) + ":" + Math.floor(mainAudioSource.duration % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
   if (mainAudioSource.currentTime >= mainAudioSource.duration) {
     toggleAudio();
+    rewindForwards();
   }
 }
 
@@ -169,6 +176,25 @@ function togglePlaybackSpeed() {
   setPlaybackSpeed.innerText = mainAudioSource.playbackRate + "x";
 }
 
+function rewindBackwards() {
+  if (mainAudioSource.currentTime > 2 || lastSongsPlayed.length == 0) {
+    mainAudioSource.currentTime = 0;
+    return;
+  }
+  nextSongsToPlay.unshift(currentlyPlayedSong);
+  currentlyPlayedSong = lastSongsPlayed.pop();
+  setCurrentAudioTrack(trackList[currentlyPlayedSong].audioTrackName, albumInfoList[trackList[currentlyPlayedSong].albumID].albumName, albumInfoList[trackList[currentlyPlayedSong].albumID].albumCoverImage, trackList[currentlyPlayedSong].audioTrackLocation);
+}
+
+function rewindForwards() {
+  if (nextSongsToPlay.length == 0) {
+    return;
+  }
+  lastSongsPlayed.push(currentlyPlayedSong);
+  currentlyPlayedSong = nextSongsToPlay.shift();
+  setCurrentAudioTrack(trackList[currentlyPlayedSong].audioTrackName, albumInfoList[trackList[currentlyPlayedSong].albumID].albumName, albumInfoList[trackList[currentlyPlayedSong].albumID].albumCoverImage, trackList[currentlyPlayedSong].audioTrackLocation);
+} // TODO: Loading other albums
+
 playBar.addEventListener("mousedown", (event) => {
   let newAudioPosition = ((event.clientX-playBar.getBoundingClientRect().left) / playBar.scrollWidth);
   setPlayBarFill(newAudioPosition);
@@ -182,5 +208,9 @@ mainAudioSource.ontimeupdate = audioPlaying;
 mainAudioSource.onpause = pauseAudio;
 
 mainAudioSource.onplay = playAudio;
+
+backwardsButton.onclick = rewindBackwards;
+
+forwardsButton.onclick = rewindForwards;
 
 getAllArtists();
