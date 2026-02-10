@@ -25,6 +25,13 @@ let trackList = {};
 let nextSongsToPlay = [];
 let lastSongsPlayed = [];
 let currentlyPlayedSong = "";
+let currentlySelectedArtistPage = "";
+
+function goToArtistOverview() {
+  allArtistsGrid.style.display = "grid";
+  artistView.style.display = "none";
+  albumView.style.display = "none";
+}
 
 function getAllArtists() {
   fetch("/api/getAllArtists").then(function(response) {
@@ -44,14 +51,20 @@ function addArtistToGrid(artist) {
   newArtistForGrid.classList.add("canBeClicked", "smallHover");
   newArtistForGrid.src = artist.artist_cover_image;
   newArtistForGrid.setAttribute("artistID", artist.artist_id);
-  newArtistForGrid.onclick = loadArtistPage;
+  newArtistForGrid.onclick = artistSelected;
   allArtistsGrid.appendChild(newArtistForGrid);
 }
 
-function loadArtistPage(event) {
-  let selectedArtistID = event.target.getAttribute("artistID");
+function artistSelected(event) {
+  loadArtistPage(event.target.getAttribute("artistID"))
+}
+
+function loadArtistPage(selectedArtistID) {
+  currentlySelectedArtistPage = selectedArtistID;
+  artistViewAlbumList.replaceChildren();
   allArtistsGrid.style.display = "none";
   artistView.style.display = "block";
+  albumView.style.display = "none";
   artistViewArtistCover.src = artistsInfoList[selectedArtistID].artistCoverImage;
   artistViewArtistName.innerText = artistsInfoList[selectedArtistID].artistName;
   getAlbumsFromArtist(selectedArtistID);
@@ -75,12 +88,16 @@ function addAlbumToArtistGrid(album) {
   newAlbumForGrid.classList.add("canBeClicked", "smallHover");
   newAlbumForGrid.src = album.album_cover_image;
   newAlbumForGrid.setAttribute("albumID", album.album_id);
-  newAlbumForGrid.onclick = loadAlbumPage;
+  newAlbumForGrid.onclick = albumSelected;
   artistViewAlbumList.appendChild(newAlbumForGrid);
 }
 
-function loadAlbumPage(event) {
-  let selectedAlbumID = event.target.getAttribute("albumID");
+function albumSelected(event) {
+  loadAlbumPage(event.target.getAttribute("albumID"))
+}
+
+function loadAlbumPage(selectedAlbumID) {
+  albumViewTrackList.replaceChildren();
   allArtistsGrid.style.display = "none";
   artistView.style.display = "none";
   albumView.style.display = "block";
@@ -157,6 +174,7 @@ function audioPlaying() {
 }
 
 function setCurrentAudioTrack(trackTitle, albumTitle, albumCoverImage, audioFile) {
+  let playbackSpeed = mainAudioSource.playbackRate;
   currentTrackTitle.innerText = trackTitle;
   currentAlbumTitle.innerText = albumTitle;
   currentAlbumCover.src = albumCoverImage;
@@ -165,6 +183,7 @@ function setCurrentAudioTrack(trackTitle, albumTitle, albumCoverImage, audioFile
     currentPlayTime.innerHTML = "0:00 <br> " + Math.floor(mainAudioSource.duration / 60) + ":" + Math.floor(mainAudioSource.duration % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
   }, 300); // TODO: Find solution
   setPlayBarFill(0);
+  mainAudioSource.playbackRate = playbackSpeed;
   playAudio();
 }
 

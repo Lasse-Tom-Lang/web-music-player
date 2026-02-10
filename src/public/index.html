@@ -11,6 +11,7 @@
     <div class="displayGrid" id="allArtistsGrid">
     </div>
     <div id="artistView" class="singleInfoView" style="display: none;">
+      <button class="backButtonTop glassEffect" onclick="goToArtistOverview()">Back</button>
       <div id="artistTopInfo" class="singleInfoViewTop">
         <img src="" alt="Artist" id="artistViewArtistCover">
         <h1 id="artistViewArtistName">Artist name</h1>
@@ -20,6 +21,7 @@
       </div>
     </div>
     <div id="albumView" class="singleInfoView" style="display: none;">
+      <button class="backButtonTop glassEffect" onclick="loadArtistPage(currentlySelectedArtistPage)">Back</button>
       <div id="albumTopInfo" class="singleInfoViewTop">
         <img src="" alt="Album" id="albumViewAlbumCover">
         <h1 id="albumViewAlbumName">Album name</h1>

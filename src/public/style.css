@@ -161,3 +161,14 @@ body {
 .trackListItem span {
   color: #eeeeee60;
 }
+
+.backButtonTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: .25rem;
+  font-size: 18px;
+  border-radius: 0;
+  border-bottom-right-radius: .5rem;
+  cursor: pointer;
+}
