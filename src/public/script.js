@@ -28,7 +28,6 @@ let currentlyPlayedSong = "";
 let currentlySelectedArtistPage = "";
 
 function goToArtistOverview() {
-  allArtistsGrid.style.display = "grid";
   artistView.style.display = "none";
   albumView.style.display = "none";
 }
@@ -62,7 +61,6 @@ function artistSelected(event) {
 function loadArtistPage(selectedArtistID) {
   currentlySelectedArtistPage = selectedArtistID;
   artistViewAlbumList.replaceChildren();
-  allArtistsGrid.style.display = "none";
   artistView.style.display = "block";
   albumView.style.display = "none";
   artistViewArtistCover.src = artistsInfoList[selectedArtistID].artistCoverImage;
@@ -98,7 +96,6 @@ function albumSelected(event) {
 
 function loadAlbumPage(selectedAlbumID) {
   albumViewTrackList.replaceChildren();
-  allArtistsGrid.style.display = "none";
   artistView.style.display = "none";
   albumView.style.display = "block";
   albumViewAlbumCover.src = albumInfoList[selectedAlbumID].albumCoverImage;

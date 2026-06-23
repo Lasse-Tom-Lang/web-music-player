@@ -10,9 +10,11 @@
   <body>
     <div class="displayGrid" id="allArtistsGrid">
     </div>
-    <div id="artistView" class="singleInfoView" style="display: none;">
-      <button class="backButtonTop glassEffect" onclick="goToArtistOverview()">Back</button>
-      <div id="artistTopInfo" class="singleInfoViewTop">
+
+
+    <div id="artistView" class="popupViewBig glassEffect" style="display: block;">
+      <button class="backButtonTop glassEffect" onclick="goToArtistOverview()">X</button>
+      <div id="artistTopInfo" class="popupViewBigHeader">
         <img src="" alt="Artist" id="artistViewArtistCover">
         <h1 id="artistViewArtistName">Artist name</h1>
       </div>
@@ -20,9 +22,11 @@
       <div class="displayGrid" id="artistViewAlbumList">
       </div>
     </div>
-    <div id="albumView" class="singleInfoView" style="display: none;">
-      <button class="backButtonTop glassEffect" onclick="loadArtistPage(currentlySelectedArtistPage)">Back</button>
-      <div id="albumTopInfo" class="singleInfoViewTop">
+
+
+    <div id="albumView" class="popupViewBig glassEffect" style="display: none;">
+      <button class="backButtonTop glassEffect" onclick="loadArtistPage(currentlySelectedArtistPage)">X</button>
+      <div id="albumTopInfo" class="popupViewBigHeader">
         <img src="" alt="Album" id="albumViewAlbumCover">
         <h1 id="albumViewAlbumName">Album name</h1>
       </div>
@@ -30,12 +34,14 @@
       <div id="albumViewTrackList" class="glassEffect">
       </div>
     </div>
+
+
     <div id="musicControllBarSmall" class="glassEffect">
       <div id="playBar" class="canBeClicked">
         <div id="playBarFill"></div>
       </div>
       <div id="musicControllBarSongInfo">
-        <img src="" alt="Cover" id="currentAlbumCover">
+        <img src="icons/music_note.svg" alt="Cover" id="currentAlbumCover">
         <div>
           <h2 id="currentTrackTitle">Not playing</h2>
           <p id="currentAlbumTitle">Not playing</p>
@@ -49,6 +55,10 @@
         <button id="setPlaybackSpeed" class="canBeClicked smallHover glassEffect" onclick="togglePlaybackSpeed()">1x</button>
       </div>
     </div>
+
+
     <audio src="" id="mainAudioSource"></audio>
+
+
   </body>
 </html>
